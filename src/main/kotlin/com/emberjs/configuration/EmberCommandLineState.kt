@@ -7,7 +7,7 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessTerminatedListener
 import com.intellij.execution.runners.ExecutionEnvironment
 
-class EmberCommandLineState(environment: ExecutionEnvironment) : CommandLineState(environment) {
+open class EmberCommandLineState(environment: ExecutionEnvironment) : CommandLineState(environment) {
     override fun startProcess(): ProcessHandler {
         val configuration = (environment.runProfile as EmberConfiguration)
         val argList = configuration.options.toCommandLineOptions()
