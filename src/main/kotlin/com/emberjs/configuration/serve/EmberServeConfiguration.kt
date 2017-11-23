@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
 
 class EmberServeConfiguration(project: Project, factory: ConfigurationFactory, name: String) : RunConfigurationBase(project, factory, name), EmberConfiguration {
+    override var workingDirectory: String? = null
     override val options = EmberServeOptions()
     override val command: String = "serve"
 

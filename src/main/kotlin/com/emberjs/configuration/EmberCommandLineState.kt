@@ -13,7 +13,7 @@ open class EmberCommandLineState(environment: ExecutionEnvironment) : CommandLin
         val argList = configuration.options.toCommandLineOptions()
 
         val cmd = EmberCli(configuration.command, *argList)
-                .apply { workDirectory = environment.project.basePath }
+                .apply { workDirectory = configuration.workingDirectory ?: environment.project.basePath }
                 .commandLine()
                 .apply {
                     // taken from intellij-rust

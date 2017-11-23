@@ -12,14 +12,21 @@ import org.jdom.Element
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
 
-class EmberTestConfiguration(project: Project, factory: ConfigurationFactory, name: String) : RunConfigurationBase(project, factory, name), EmberConfiguration {
+class EmberTestConfiguration(project: Project, factory: ConfigurationFactory, name: String) :
+        RunConfigurationBase(project, factory, name),
+        LocatableConfiguration,
+        EmberConfiguration {
+
+    override fun isGeneratedName(): Boolean {
+        return true;
+    }
+
+    override var workingDirectory: String? = null
     override val options = EmberTestOptions()
     override val command: String = "test"
 
     @NotNull
-    override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> {
-        return EmberTestSettingsEditor()
-    }
+    override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> = EmberTestSettingsEditor()
 
     @Throws(RuntimeConfigurationException::class)
     override fun checkConfiguration() {
@@ -33,16 +40,17 @@ class EmberTestConfiguration(project: Project, factory: ConfigurationFactory, na
     }
 
     override fun writeExternal(element: Element?) {
-        super.writeExternal(element)
+        super<RunConfigurationBase>.writeExternal(element)
         element?.let {
-            options.fields().forEach { optionsField -> optionsField.writeTo(element)}
+            options.fields().forEach { optionsField -> optionsField.writeTo(element) }
         }
     }
 
     override fun readExternal(element: Element?) {
-        super.readExternal(element)
+        super<RunConfigurationBase>.readExternal(element)
         element?.let {
             options.fields().forEach { optionsField -> optionsField.readFrom(element) }
         }
     }
+
 }

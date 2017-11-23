@@ -72,6 +72,10 @@
         <!-- ember test -->
         <programRunner implementation="com.emberjs.configuration.test.EmberTestProgramRunner"/>
         <configurationType implementation="com.emberjs.configuration.test.EmberTestConfigurationType"/>
+        <runConfigurationProducer implementation="com.emberjs.configuration.test.EmberTestRunConfigurationProducer" />
+        <runLineMarkerContributor
+                language="ECMAScript 6"
+                implementationClass="com.emberjs.configuration.test.EmberTestLineMarkerContributor"/>
     </extensions>
 
     <extensions defaultExtensionNs="JavaScript">
